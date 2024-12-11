@@ -56,17 +56,26 @@ const addTask = function() {
 // Edit an existing task
 const editTask = function() {
     const listItem = this.parentNode;
-    const editInput = listItem.querySelector('.todo__edit-input'); // Use class selector
-    const label = listItem.querySelector(".todo__label"); // Use class selector
-    const editBtn = listItem.querySelector(".todo__button_edit"); // Use class selector
+    const editInput = listItem.querySelector('.todo__edit-input');
+    const label = listItem.querySelector(".todo__label");
+    const editBtn = listItem.querySelector(".todo__button_edit");
     const containsClass = listItem.classList.contains("editMode");
 
     if (containsClass) {
+        // When saving, update the label with the input's value
         label.innerText = editInput.value;
         editBtn.innerText = "Edit";
+        
+        // Hide input, show label
+        editInput.style.display = 'none';
+        label.style.display = 'inline-block';
     } else {
+        // When entering edit mode, replace label with input
         editInput.value = label.innerText;
+        label.style.display = 'none';
+        editInput.style.display = 'inline-block';
         editBtn.innerText = "Save";
+        editInput.focus(); // Automatically focus the input
     }
     listItem.classList.toggle("editMode");
 };
